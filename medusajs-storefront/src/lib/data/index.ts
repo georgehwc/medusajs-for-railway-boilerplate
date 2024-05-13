@@ -433,8 +433,10 @@ export const retrievePricedProductById = cache(async function ({
 })
 
 export const getProductByHandle = cache(async function (
-  handle: string
+  encodedHandle: string
 ): Promise<{ product: PricedProduct }> {
+  const handle = decodeURIComponent(encodedHandle)
+
   const headers = getMedusaHeaders(["products"])
 
   const product = await medusaClient.products
